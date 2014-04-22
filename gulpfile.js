@@ -2,6 +2,9 @@
 // generated on 2014-04-21 using generator-gulp-webapp 0.0.8
 
 var gulp = require('gulp');
+var browserify = require('gulp-browserify');
+var concat = require('gulp-concat');
+// var bundle = browserify('./app/scripts/main.js').bundle();
 
 // load plugins
 var $ = require('gulp-load-plugins')();
@@ -18,12 +21,21 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.js')
-        .pipe($.jshint())
-        .pipe($.jshint.reporter($.jshintStylish))
-        .pipe($.size());
+        .pipe(browserify())
+        // .pipe(concat('app/scripts/dest.js'))
+        // .pipe(gulp.dest('build'))
+        // .pipe($.jshint())
+        // .pipe($.jshint.reporter($.jshintStylish))
+        .pipe($.size())
+        // .pipe(browserify({
+        //     insertGlobals: false,
+        //     debug: !gulp.env.production
+        // }));
+        // .pipe(gulp.de);
 });
 
-gulp.task('html', ['styles', 'scripts'], function () {
+// gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('html', ['scripts'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
